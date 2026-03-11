@@ -22,6 +22,7 @@ class User extends Authenticatable
         'name',
         'login',
         'password',
+        'email',
         'role',
         'status',
         'hire_date',
@@ -35,7 +36,8 @@ class User extends Authenticatable
      */
     protected  $hidden = 
     [
-        'password'
+        'password',
+        'remember_token'
     ];
 
     /**
@@ -48,11 +50,18 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'hire_date' => 'date',
+            'fired_date' => 'date'
         ];
     }
 
-    public function attitude()
+    public function shifts()
     {
-        return $this->hasMany(Relationship::class);
+        return $this->hasMany(Shift::class);
+    }
+
+    public function wainter_Orders()
+    {
+        return $this->hasMany(Order::class, 'wainter_id');
     }
 }
