@@ -17,10 +17,15 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $fillable = [
+     protected $fillable = 
+    [
         'name',
-        'email',
+        'login',
         'password',
+        'role',
+        'status',
+        'hire_date',
+        'fired_date'
     ];
 
     /**
@@ -28,9 +33,9 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected $hidden = [
-        'password',
-        'remember_token',
+    protected  $hidden = 
+    [
+        'password'
     ];
 
     /**
@@ -44,5 +49,10 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    public function attitude()
+    {
+        return $this->hasMany(Relationship::class);
     }
 }

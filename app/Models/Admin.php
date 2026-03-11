@@ -1,12 +1,12 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Symfony\Component\HttpFoundation\Request;
-use Wainter;
 
 class Admin extends Controller
 {
-    public function  assignRole(Request $request, Wainter $wainter)
+    public function  assignRole(Request $request, User $user)
     {
         
     }
