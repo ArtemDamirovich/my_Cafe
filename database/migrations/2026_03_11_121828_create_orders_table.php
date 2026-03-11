@@ -13,7 +13,16 @@ return new class extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
-            
+            $table->string('order_number')->unique();
+            $table->foreignId('table_id')->constrained();
+            $table->foreignId('wainter_id')->constrained();
+            $table->foreignId('chef_id')->nullable()->constrained('user');
+            $table->enum('status', ['new', 'cooking', 'ready', 'not_paid', 'paid'])->default('new');
+            $table->json('item'); // Тут хранится список блюд
+            $table->decimal('total_amount', 10, 2);
+            $table->text('notes')->nullable();
+            $table->timestamp('ordered_at')->useCurrent();
+            $table->timestamp('completed_at');
             $table->timestamps();
         });
     }
