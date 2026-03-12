@@ -3,9 +3,11 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Shift;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Order;
 
 class User extends Authenticatable
 {
@@ -17,7 +19,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-     protected $fillable = 
+     protected $fillable =
     [
         'name',
         'login',
@@ -34,7 +36,7 @@ class User extends Authenticatable
      *
      * @var list<string>
      */
-    protected  $hidden = 
+    protected  $hidden =
     [
         'password',
         'remember_token'
@@ -60,8 +62,46 @@ class User extends Authenticatable
         return $this->hasMany(Shift::class);
     }
 
-    public function wainter_Orders()
+    public function waiter_Orders()
     {
-        return $this->hasMany(Order::class, 'wainter_id');
+        return $this->hasMany(Order::class, 'waiter_id');
+    }
+
+    public function chef_Orders()
+    {
+        return $this->hashed(Order::class, 'chef_id');
+    }
+
+    public function is_Admin()
+    {
+        return $this->role == 'admin';
+    }
+
+    public function is_Chef()
+    {
+         return $this->role == 'chef';
+    }
+
+    public function is_Waiter()
+    {
+         return $this->role == 'waiter';
+    }
+
+    public function is_Active()
+    {
+        return $this->role == 'active';
+    }
+
+    public function fire()
+    {
+        $this->status = 'fired';
+        $this->fired_date = now();
+        $this->save();
+    }
+     
+    public function assing_Role($role)
+    {
+        $this->role = $role;
+        $this->save();
     }
 }

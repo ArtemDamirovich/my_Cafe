@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('order_number')->unique();
             $table->foreignId('table_id')->constrained();
-            $table->foreignId('wainter_id')->constrained();
+            $table->foreignId('waiter_id')->constrained();
             $table->foreignId('chef_id')->nullable()->constrained('user');
             $table->enum('status', ['new', 'cooking', 'ready', 'not_paid', 'paid'])->default('new');
             $table->json('item'); // Тут хранится список блюд
