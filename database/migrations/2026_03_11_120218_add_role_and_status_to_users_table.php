@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('waiter', function (Blueprint $table) {
             $table->string('login')->unique()->after('name');
-            $table->enum('role', ['admin', 'chef', 'wainter'])->default('wainter')->after('password');
+            $table->enum('role', ['admin', 'chef', 'waiter'])->default('waiter')->after('password');
             $table->enum('status', ['active', 'fired']);
             $table->date('hire_date')->nullable()->after('status');
             $table->date('fired_date')->nullable()->after('hire_date');
