@@ -98,8 +98,8 @@ class User extends Authenticatable
         $this->fired_date = now();
         $this->save();
     }
-     
-    public function assing_Role($role)
+
+    public function assign_Role($role)
     {
         $this->role = $role;
         $this->save();

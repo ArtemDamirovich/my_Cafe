@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('waiter_id')->constrained();
             $table->foreignId('chef_id')->nullable()->constrained('user');
             $table->enum('status', ['new', 'cooking', 'ready', 'not_paid', 'paid'])->default('new');
-            $table->json('item'); // Тут хранится список блюд
+            $table->json('items'); // Тут хранится список блюд
             $table->decimal('total_amount', 10, 2);
             $table->text('notes')->nullable();
             $table->timestamp('ordered_at')->useCurrent();
