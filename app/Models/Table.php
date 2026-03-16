@@ -24,7 +24,7 @@ class Table extends Model
         return $this->hasMany(Order::class)->whereIn('status', ['new', 'cooking', 'ready']);
     }
 
-    public function is_free()
+    public function is_free() // Проверить, свободен ли столик
     {
         return $this->status == 'free';
     }
@@ -35,7 +35,7 @@ class Table extends Model
         $this->save();
     }
 
-    public function busy() // Занятый столик
+    public function free() // Освободить столик (когда гости ушли)
     {
         $this->status == 'free';
         $this->save();

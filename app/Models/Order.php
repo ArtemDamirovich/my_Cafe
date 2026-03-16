@@ -29,9 +29,9 @@ class Order extends Model
         'completed_at' => 'datetime'
     ];
 
-    public static function loading() // Генерация номера заказа по дате и номера случайного заказа
+    public static function booted() // Генерация номера заказа по дате и номера случайного заказа
     {
-        parent::loading();
+        parent::booted();
 
         static::creating(function($order)
         {
@@ -42,7 +42,7 @@ class Order extends Model
         });
     }
 
-    public function table()
+    public function table_To()
     {
         return $this->belongsTo(Table::class);
     }
@@ -64,26 +64,41 @@ class Order extends Model
         $this->save();
     }
 
-    public function mark_To_Ready()
+    public function mark_As_Ready()
     {
         $this->status = 'ready';
         $this->save();
     }
 
-    public function mark_To_Served()
+    public function mark_As_Served()
     {
         $this->status = 'not_paid';
         $this->save();
     }
 
-    public function mark_To_Paid()
+    public function mark_As_Paid()
     {
         $this->status = 'paid';
         $this->completed_at = now();
         $this->save();
-        if($this->table)
+        if($this->table_To)
             {
-                $this->table->free();
+                $this->table_To->free(); // Освободить столик
             }
+    }
+
+    public function scope_new($query) // scope - объем
+    {
+        return $query->where('status', 'new');
+    }
+
+    public function scope_Cooking($query)
+    {
+        return $query->where('status', 'cooking');
+    }
+
+    public function scope_Ready($query)
+    {
+        return $query->where('status', 'ready');
     }
 }
