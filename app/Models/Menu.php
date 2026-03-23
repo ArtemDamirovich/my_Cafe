@@ -18,7 +18,7 @@ class Menu extends Model
         'is_accessible' => 'boolean'
     ];
 
-    public function scope_Accessible($query) // объем доступный 
+    public function scope_Accessible($query) // объем доступный
     {
         return $query->where('is_accessible', true);
     }

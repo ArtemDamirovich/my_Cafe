@@ -12,7 +12,7 @@ class Table extends Model
     protected $fillable = [
         'table_id',
         'status',
-        'seats'      
+        'seats'
     ];
     public function orders()
     {
