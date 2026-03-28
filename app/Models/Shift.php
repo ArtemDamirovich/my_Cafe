@@ -13,7 +13,7 @@ class Shift extends Model
         'user_id',
         'date',
         'shift_type',
-        'start_type',
+        'start_time',
         'end_time'
     ];
 
