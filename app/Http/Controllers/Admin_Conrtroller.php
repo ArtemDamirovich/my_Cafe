@@ -5,7 +5,6 @@ use App\Models\Shift;
 use App\Models\Table;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
 
 class Admin_Controller extends Controller
 {
@@ -21,9 +20,9 @@ class Admin_Controller extends Controller
         return view('admin.employees.create');
     }
 
-    public function ctore_Employees(Request $requesr)
+    public function ctore_Employees(Request $request)
     {
-        $requesr -> validate([
+        $request -> validate([
             'name' => 'required',
             'login' => 'required|unique:users',
             'email' => 'required|email|unique:users',
@@ -33,12 +32,12 @@ class Admin_Controller extends Controller
         ]);
 
         User::create([
-            'name' => $requesr->name,
-            'login' => $requesr->login,
-            'email' => $requesr->email,
-            'password' => bcrypt($requesr->password),
-            'role' => $requesr->role,
-            'hire_date' => $requesr->hire_date,
+            'name' => $request->name,
+            'login' => $request->login,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'role' => $request->role,
+            'hire_date' => $request->hire_date,
             'status' => 'active'
         ]);
 
@@ -50,16 +49,16 @@ class Admin_Controller extends Controller
         return view('admin.employees.edit', compact('user'));
     }
 
-    public function update_Employee(Request $requesr, User $user)
+    public function update_Employee(Request $request, User $user)
     {
-        $requesr->validate([
+        $request->validate([
             'name' => 'required',
             'login' => 'required|unique:users.login' . $user->id,
             'email' => 'required|email|unique:users.email' . $user->id,
             'role' => 'required|in:admin, chef, waiter'
         ]);
 
-        $user->update($requesr->only(['name', 'login', 'email', 'role']));
+        $user->update($request->only(['name', 'login', 'email', 'role']));
 
         return redirect()->route('admin.employees')->with('message', 'Данные сотрудника обновлены');
     }
@@ -102,7 +101,7 @@ class Admin_Controller extends Controller
         return redirect()->route('admin.shifts')->with('message', 'смена насзначена');
     }
 
-    public function tadles()
+    public function tables()
     {
         $tables = Table::with('current_Order')->get();
 
@@ -144,7 +143,7 @@ class Admin_Controller extends Controller
     {
         if($table->status == 'booked')
         {
-            return back()->with('error', 'Стоик нельзу удалить, занят');
+            return back()->with('error', 'Стоик нельзя удалить, занят');
         }
 
         $table->delete();

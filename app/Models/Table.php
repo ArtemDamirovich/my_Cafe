@@ -29,7 +29,7 @@ class Table extends Model
         return $this->status == 'free';
     }
 
-    public function booked() // Забронированый столик
+    public function booked() // Забронированы столики
     {
         $this->status == 'booked';
         $this->save();

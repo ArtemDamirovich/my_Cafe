@@ -8,15 +8,15 @@ use App\Models\Table;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class Dashboard_Controller extends Controller // Dashboard - панель управления 
-{ 
-    private function admin_Dashboard() // общее колличество сотрудников 
+class Dashboard_Controller extends Controller // Dashboard - панель управления
+{
+    private function admin_Dashboard() // общее количество сотрудников
     {
         $stats = [
-            'total_Employees' => User::where('status', 'active')->count(), // Employees - сотрудники 
-            'tatol_Table' => Table::count(),
-            'tatol_Orders' => Order::whereDate('created_at', today())->count(),
-            'revenue_todye' => Order::whereDate('created_at', today())->where('status', 'paid')->sum('total_amount')
+            'total_Employees' => User::where('status', 'active')->count(), // Employees - сотрудники
+            'total_Table' => Table::count(),
+            'total_Orders' => Order::whereDate('created_at', today())->count(),
+            'revenue_toyed' => Order::whereDate('created_at', today())->where('status', 'paid')->sum('total_amount')
         ];
 
         $number_Orders = Order::with(['table', 'waiter'])->latest()->take(15)->get(); // показывает новые заказы новые будут первыми и ограничено до 15
@@ -52,7 +52,7 @@ class Dashboard_Controller extends Controller // Dashboard - панель упр
     {
         $user = $request->user();
 
-        if (!$user) 
+        if (!$user)
         {
              return redirect()->route('login');
         }
