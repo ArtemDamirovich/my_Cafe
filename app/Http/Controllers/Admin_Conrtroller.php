@@ -20,7 +20,7 @@ class Admin_Controller extends Controller
         return view('admin.employees.create');
     }
 
-    public function ctore_Employees(Request $request)
+    public function store_Employees(Request $request)
     {
         $request -> validate([
             'name' => 'required',

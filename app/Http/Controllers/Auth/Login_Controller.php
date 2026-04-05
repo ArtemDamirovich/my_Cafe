@@ -46,5 +46,4 @@ class Login_Controller extends Controller
                 return redirect()->route('waiter.dash_board');
             }
     }
-    // https://github.com/flowseal/zapret-discord-youtube - посивный vpn
 }
